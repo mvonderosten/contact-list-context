@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const AddContact = () => {
+	const [contacts, setContacts] = useState();
+
 	return (
 		<div className="container">
 			<div>
