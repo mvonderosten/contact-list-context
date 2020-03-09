@@ -11,6 +11,15 @@ const getState = ({ getStore, setStore }) => {
 						console.log("contacts", data);
 						setStore({ contacts: data });
 					});
+			},
+
+			saveContact: contactToSave => {
+				fetch("https://assets.breatheco.de/apis/fake/contact/agenda/markvon")
+					.then(resp => resp.json())
+					.then(data => {
+						console.log("saveContact", data);
+						setStore({ contacts: data });
+					});
 			}
 		}
 
