@@ -1,4 +1,4 @@
-const getState = ({ getStore, setStore }) => {
+const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			contacts: []
@@ -13,16 +13,39 @@ const getState = ({ getStore, setStore }) => {
 					});
 			},
 
-			saveContact: contact => {
+			addContact: contactsToAdd => {
 				fetch("https://assets.breatheco.de/apis/fake/contact/agenda/markvon", {
-					body: JSON.stringify(contact)
+					method: "POST",
+					body: JSON.stringify(contactsToAdd),
+					headers: {
+						"Content-Type": "application/json"
+					}
 				})
-					.then(resp => resp.json())
+					.then(resp => {
+						return resp.json();
+					})
 					.then(data => {
-						console.log("saveContact", data);
-						setStore({ contacts: data });
+						console.log("addContact", data);
+						getActions().loadContact();
 					});
 			}
+
+			// editContact: contactsToEdit => {
+			// 	fetch("https://assets.breatheco.de/apis/fake/contact/agenda/markvon", {
+			// 		method: "POST",
+			// 		body: JSON.stringify(contactsToEdit),
+			// 		headers: {
+			// 			"Content-Type": "application/json"
+			// 		}
+			// 	})
+			// 		.then(resp => {
+			// 			return resp.json();
+			// 		})
+			// 		.then(data => {
+			// 			console.log("editContact", data);
+			// 			getActions().loadContact();
+			// 		});
+			// }
 		}
 
 		//(Arrow) Functions that update the Store
